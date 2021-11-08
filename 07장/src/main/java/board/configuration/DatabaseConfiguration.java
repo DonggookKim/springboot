@@ -15,6 +15,8 @@ import org.springframework.context.annotation.PropertySource;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import java.util.Properties;
+
 @Configuration
 @PropertySource("classpath:/application.properties")
 public class DatabaseConfiguration {
@@ -53,5 +55,11 @@ public class DatabaseConfiguration {
 	@Bean
 	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory){
 		return new SqlSessionTemplate(sqlSessionFactory);
+	}
+
+	@Bean
+	@ConfigurationProperties(prefix = "spring.jpa")
+	public Properties hibernateConfig(){
+		return new Properties();
 	}
 }
